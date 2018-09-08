@@ -7,11 +7,12 @@
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>resty-example</artifactId>
+  <artifactId>resty-web</artifactId>
   <packaging>war</packaging>
   <version>${project.parent.version}</version>
-  <name>resty-example</name>
+  <name>resty-web</name>
   <url>http://maven.apache.org</url>
+  <description>excute web  app</description>
 
   <repositories>
     <repository>
