@@ -28,19 +28,19 @@ import java.util.UUID;
 public class CodeResource extends Resource {
   private static final Logger logger = Logger.getLogger(CodeResource.class);
 
-  @GET
-  public HttpResult toSignIn(String key, String response_type, String state) {
-    String redirectParam = "?key=" + key + "&response_type=" + response_type + "&state=" + state;
-    if (!response_type.equals("code")) {
-      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthErrorUrl + redirectParam + "&error=response_type_not_match"));
-    }
-    Client client = Client.DAO.findFirstBy("key=?", key);
-    if (client == null) {
-      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthErrorUrl + redirectParam + "&error=client_not_found"));
-    } else {
-      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthSignInUrl + redirectParam));
-    }
-  }
+//  @GET
+//  public HttpResult toSignIn(String key, String response_type, String state) {
+//    String redirectParam = "?key=" + key + "&response_type=" + response_type + "&state=" + state;
+//    if (!response_type.equals("code")) {
+//      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthErrorUrl + redirectParam + "&error=response_type_not_match"));
+//    }
+//    Client client = Client.DAO.findFirstBy("key=?", key);
+//    if (client == null) {
+//      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthErrorUrl + redirectParam + "&error=client_not_found"));
+//    } else {
+//      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthSignInUrl + redirectParam));
+//    }
+//  }
 
   /**
    * @param client={"key":"xx","scopeIds":[xx,xx]}
@@ -48,29 +48,30 @@ public class CodeResource extends Resource {
    * @param state
    * @return
    */
-  @POST
-  public HttpResult getCode(Client client, String response_type, String state) {
-    String redirectParam = "?key=" + client.get("key") + "&response_type=" + response_type + "&state=" + state;
-    if (!response_type.equals("code")) {
-      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthErrorUrl + redirectParam + "&error=response_type_not_match"));
-    }
-    Client oldClient = Client.DAO.findFirstBy("key=?", client.get("key"));
-    if (oldClient == null) {
-      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthErrorUrl + redirectParam + "&error=client_not_found"));
-    } else {
-      Set<Scope> scopes = new HashSet<Scope>();
-      for (Scope scope : oldClient.getScopes()) {
-        if (scope.<Integer>get("selected") == 1 || Arrays.asList(client.getScopeIds()).contains(scope.<Integer>get("id"))) {
-          scopes.add(scope);
-        }
-      }
-      Entity<?> user = Subject.getPrincipal().getModel();
-      int userId = user.<Integer>get("id");
-      Code code = new Code(UUID.randomUUID().toString().replaceAll("-", ""), oldClient.<Integer>get("id"), userId, Constant.oauthExpires, scopes);
-      Authorizes.addCode(code);//cache code
-      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", oldClient.get("redirect_uri") + "?code=" + code.getCode() + "&state=" + state));
-    }
-  }
+//  @POST
+//  public HttpResult getCode(Client client, String response_type, String state) {
+//    String redirectParam = "?key=" + client.get("key") + "&response_type=" + response_type + "&state=" + state;
+//    if (!response_type.equals("code")) {
+//      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthErrorUrl + redirectParam + "&error=response_type_not_match"));
+//    }
+//    Client oldClient = Client.DAO.findFirstBy("key=?", client.get("key"));
+//    if (oldClient == null) {
+//      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", Constant.oauthErrorUrl + redirectParam + "&error=client_not_found"));
+//    } else {
+//      Set<Scope> scopes = new HashSet<Scope>();
+//      for (Scope scope : oldClient.getScopes()) {
+//        if (scope.<Integer>get("selected") == 1 || Arrays.asList(client.getScopeIds()).contains(scope.<Integer>get("id"))) {
+//          scopes.add(scope);
+//        }
+//      }
+//      Entity<?> user = Subject.getPrincipal().getModel();
+//      int userId = user.<Integer>get("id");
+//      Code code = new Code(UUID.randomUUID().toString().replaceAll("-", ""), oldClient.<Integer>get("id"), userId, Constant.oauthExpires, scopes);
+//      Authorizes.addCode(code);//cache code
+//      return new HttpResult(HttpStatus.FOUND, Maper.<String, String>of("location", oldClient.get("redirect_uri") + "?code=" + code.getCode() + "&state=" + state));
+//    }
+	  
+//  }
 
 
 }

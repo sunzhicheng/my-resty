@@ -105,6 +105,13 @@
       <version>${resty.version}</version>
       <scope>provided</scope>
     </dependency>
+    
+     <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-base</artifactId>
+      <version>${resty.version}</version>
+      <scope>provided</scope>
+    </dependency>
 
     <!--<dependency>-->
     <!--<groupId>redis.clients</groupId>-->
@@ -164,6 +171,13 @@
   <build>
     <finalName>${project.name}-v${project.version}</finalName>
     <plugins>
+	     <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-surefire-plugin</artifactId>
+	        <configuration>
+	            <skip>true</skip>
+	        </configuration>
+	    </plugin>
       <plugin>
         <groupId>cn.dreampie</groupId>
         <artifactId>flyway-maven-plugin</artifactId>
@@ -192,6 +206,7 @@
           <webAppConfig>
             <contextPath>/</contextPath>
           </webAppConfig>
+          <skip>true</skip>
         </configuration>
       </plugin>
       <plugin>

@@ -20,6 +20,8 @@
     <module>resty-captcha</module>
     <module>resty-oauth</module>
     <module>resty-example</module>
+ <module>resty-base</module>
+
   </modules>
   <name>resty</name>
   <url>https://github.com/Dreampie/${project.name}</url>
@@ -123,6 +125,7 @@
           <source>1.6</source>
           <target>1.6</target>
           <encoding>UTF-8</encoding>
+          <skip>true</skip>
         </configuration>
       </plugin>
       <plugin>
@@ -165,20 +168,20 @@
         </executions>
       </plugin>
       <!--gpg-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+<!--       <plugin> -->
+<!--         <groupId>org.apache.maven.plugins</groupId> -->
+<!--         <artifactId>maven-gpg-plugin</artifactId> -->
+<!--         <version>1.6</version> -->
+<!--         <executions> -->
+<!--           <execution> -->
+<!--             <id>sign-artifacts</id> -->
+<!--             <phase>verify</phase> -->
+<!--             <goals> -->
+<!--               <goal>sign</goal> -->
+<!--             </goals> -->
+<!--           </execution> -->
+<!--         </executions> -->
+<!--       </plugin> -->
     </plugins>
   </build>
 </project>

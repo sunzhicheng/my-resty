@@ -1,0 +1,119 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>resty</artifactId>
+    <groupId>cn.dreampie</groupId>
+    <version>1.3.1.SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>resty-base</artifactId>
+  <name>resty-base</name>
+  <packaging>jar</packaging>
+  <version>${parent.version}</version>
+  <url>https://github.com/Dreampie/${parent.name}</url>
+  <description>my common config</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <resty.version>${parent.version}</resty.version>
+    <fastjson.version>1.2.5</fastjson.version>
+    <logback.version>1.1.2</logback.version>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+      <scope>provided</scope>
+    </dependency>
+      <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>${fastjson.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    
+    <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-route</artifactId>
+      <version>${resty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-orm</artifactId>
+      <version>${resty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-httpclient</artifactId>
+      <version>${resty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-security</artifactId>
+      <version>${resty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-captcha</artifactId>
+      <version>${resty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-upload</artifactId>
+      <version>${resty.version}</version>
+    </dependency>
+     <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-cache</artifactId>
+      <version>${resty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-server</artifactId>
+      <version>${resty.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-common</artifactId>
+      <version>${resty.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <!-- Quartz 任务 -->
+    <dependency>
+      <groupId>cn.dreampie</groupId>
+      <artifactId>resty-quartz</artifactId>
+      <version>${resty.version}</version>
+    </dependency>
+
+    <!-- 二维码 -->
+	<dependency>
+		<groupId>com.google.zxing</groupId>
+		<artifactId>core</artifactId>
+		<version>3.3.0</version>
+	</dependency>
+	<dependency>
+		<groupId>com.google.zxing</groupId>
+		<artifactId>javase</artifactId>
+		<version>3.3.0</version>
+	</dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>${project.name}-v${project.version}</finalName>
+  </build>
+</project>
