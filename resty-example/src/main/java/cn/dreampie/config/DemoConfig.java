@@ -42,4 +42,16 @@ public class DemoConfig extends RestyConfigExt {
 		
 	}
 
+	@Override
+	public void afterStartMore() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void beforeStopMore() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

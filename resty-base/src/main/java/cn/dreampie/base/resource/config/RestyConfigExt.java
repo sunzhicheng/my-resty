@@ -52,6 +52,11 @@ public abstract class RestyConfigExt extends Config {
 	public abstract void configMoreHandlers(HandlerLoader handlerLoader);
 	
 	
+	public abstract void afterStartMore();
+	public abstract void beforeStopMore();
+	
+	
+	
 	
 	public void configConstant(ConstantLoader constantLoader) {
 		constantLoader.addJsonSerializerFeature(SerializerFeature.WriteNullStringAsEmpty);
@@ -76,10 +81,6 @@ public abstract class RestyConfigExt extends Config {
 	}
 
 	public void configPlugin(PluginLoader pluginLoader) {
-		// 根据配置删除所有缓存数据库缓存
-		if (ExtConstant.delQueryCache) {
-			QueryCache.instance().getCacheProvider().doFlush(new CacheEvent(QueryCache.QUERY_DEF_KEY,getClass().getName()));
-		}
 		 C3p0DataSourceProvider cdsp = new C3p0DataSourceProvider(ExtConstant.app);
 		 ActiveRecordPlugin activeRecordCdsp = new ActiveRecordPlugin(cdsp);
 		  if(Stringer.notBlank(ExtConstant.includePackages)) {
@@ -147,12 +148,18 @@ public abstract class RestyConfigExt extends Config {
 	   * Call back after Resty start
 	   */
 	  public void afterStart() {
+		// 根据配置删除所有缓存数据库缓存
+		if (ExtConstant.delQueryCache) {
+			QueryCache.instance().getCacheProvider().doFlush(new CacheEvent(QueryCache.QUERY_DEF_KEY,getClass().getName()));
+		}
+		 afterStartMore();
 	  }
 
 	  /**
 	   * Call back before Resty stop
 	   */
 	  public void beforeStop() {
+		  beforeStopMore();
 	  }
 	
 	
