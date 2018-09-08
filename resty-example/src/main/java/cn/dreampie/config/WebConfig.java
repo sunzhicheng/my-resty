@@ -10,7 +10,7 @@ import cn.dreampie.route.config.ResourceLoader;
 /**
  * Created by ice on 14-12-29.
  */
-public class DemoConfig extends RestyConfigExt {
+public class WebConfig extends RestyConfigExt {
 
 	@Override
 	public void configMoreConstants(ConstantLoader constantLoader) {

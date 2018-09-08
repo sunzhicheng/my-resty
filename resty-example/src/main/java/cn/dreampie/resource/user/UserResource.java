@@ -1,17 +1,21 @@
 package cn.dreampie.resource.user;
 
-import cn.dreampie.orm.aspect.AspectFactory;
-import cn.dreampie.orm.page.FullPage;
-import cn.dreampie.orm.transaction.TransactionAspect;
-import cn.dreampie.resource.ApiResource;
-import cn.dreampie.resource.user.model.User;
-import cn.dreampie.resource.user.service.UserService;
-import cn.dreampie.resource.user.service.UserServiceImpl;
-import cn.dreampie.route.annotation.*;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
+import cn.dreampie.base.resource.ApiResource;
+import cn.dreampie.orm.aspect.AspectFactory;
+import cn.dreampie.orm.page.FullPage;
+import cn.dreampie.orm.transaction.TransactionAspect;
+import cn.dreampie.resource.user.model.User;
+import cn.dreampie.resource.user.service.UserService;
+import cn.dreampie.resource.user.service.UserServiceImpl;
+import cn.dreampie.route.annotation.API;
+import cn.dreampie.route.annotation.DELETE;
+import cn.dreampie.route.annotation.GET;
+import cn.dreampie.route.annotation.POST;
+import cn.dreampie.route.annotation.PUT;
 
 /**
  * Created by ice on 14-12-29.

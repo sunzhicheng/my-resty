@@ -1,5 +1,6 @@
 package cn.dreampie.resource;
 
+import cn.dreampie.base.resource.ApiResource;
 import cn.dreampie.captcha.CaptchaFactory;
 import cn.dreampie.captcha.service.Captcha;
 import cn.dreampie.common.http.HttpMessage;

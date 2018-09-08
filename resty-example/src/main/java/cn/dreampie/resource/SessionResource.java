@@ -1,5 +1,6 @@
 package cn.dreampie.resource;
 
+import cn.dreampie.base.resource.ApiResource;
 import cn.dreampie.resource.user.model.User;
 import cn.dreampie.route.annotation.API;
 import cn.dreampie.route.annotation.DELETE;
