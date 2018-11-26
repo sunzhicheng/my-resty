@@ -73,7 +73,7 @@ public class JettyServerProvider extends RestyServer {
     }
 
     webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");
-    webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "false");
+    webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "true");
 
     SessionManager sessionManager = webAppContext.getSessionHandler().getSessionManager();
     sessionManager.setSessionIdPathParameterName(null);

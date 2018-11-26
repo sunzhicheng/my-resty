@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import cn.dreampie.base.resource.ApiResource;
+import cn.base.resource.api.ApiResource;
 import cn.dreampie.orm.aspect.AspectFactory;
 import cn.dreampie.orm.page.FullPage;
 import cn.dreampie.orm.transaction.TransactionAspect;

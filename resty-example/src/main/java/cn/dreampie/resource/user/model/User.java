@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ice on 14-12-31.
  */
-@Table(name = "sec_user", primaryKey = {"sid"}, cached = true)
+@Table(name = "sys_user",  primaryKey = "id",  cached = true)
 public class User extends Model<User> {
   public static User dao = new User();
 

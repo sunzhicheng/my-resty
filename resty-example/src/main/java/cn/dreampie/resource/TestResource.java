@@ -1,6 +1,14 @@
 package cn.dreampie.resource;
 
-import cn.dreampie.base.resource.ApiResource;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import cn.base.resource.api.ApiResource;
 import cn.dreampie.captcha.CaptchaFactory;
 import cn.dreampie.captcha.service.Captcha;
 import cn.dreampie.common.http.HttpMessage;
@@ -12,17 +20,15 @@ import cn.dreampie.orm.Record;
 import cn.dreampie.orm.TableSetting;
 import cn.dreampie.orm.transaction.Transaction;
 import cn.dreampie.resource.user.model.User;
-import cn.dreampie.route.annotation.*;
+import cn.dreampie.route.annotation.API;
+import cn.dreampie.route.annotation.DELETE;
+import cn.dreampie.route.annotation.GET;
+import cn.dreampie.route.annotation.PATCH;
+import cn.dreampie.route.annotation.POST;
+import cn.dreampie.route.annotation.PUT;
 import cn.dreampie.route.core.Headers;
 import cn.dreampie.route.core.multipart.FILE;
 import cn.dreampie.service.HelloService;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wangrenhui on 15/1/10.

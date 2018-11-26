@@ -1,8 +1,8 @@
-package cn.dreampie.base.resource.config;
+package cn.base.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
-import cn.dreampie.base.constant.ExtConstant;
+import cn.base.constant.ExtConstant;
 import cn.dreampie.cache.CacheEvent;
 import cn.dreampie.common.util.Stringer;
 import cn.dreampie.log.Colorer;
@@ -17,7 +17,6 @@ import cn.dreampie.route.config.InterceptorLoader;
 import cn.dreampie.route.config.PluginLoader;
 import cn.dreampie.route.config.ResourceLoader;
 import cn.dreampie.route.handler.cors.CORSHandler;
-import cn.dreampie.route.interceptor.security.SecurityInterceptor;
 import cn.dreampie.route.interceptor.transaction.TransactionInterceptor;
 
 /**
@@ -127,10 +126,6 @@ public abstract class RestyConfigExt extends Config {
 	}
 
 	public void configInterceptor(InterceptorLoader interceptorLoader) {
-		// 权限拦截器
-		 interceptorLoader.add(new SecurityInterceptor(new
-		 MyAuthenticateService()));
-		
 		// //事务的拦截器 @Transaction
 		 interceptorLoader.add(new TransactionInterceptor());
 		 
