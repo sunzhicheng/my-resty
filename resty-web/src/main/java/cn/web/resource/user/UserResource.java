@@ -1,4 +1,4 @@
-package cn.dreampie.resource.user;
+package cn.web.resource.user;
 
 import java.util.Date;
 import java.util.List;
@@ -8,14 +8,14 @@ import cn.base.resource.api.ApiResource;
 import cn.dreampie.orm.aspect.AspectFactory;
 import cn.dreampie.orm.page.FullPage;
 import cn.dreampie.orm.transaction.TransactionAspect;
-import cn.dreampie.resource.user.model.User;
-import cn.dreampie.resource.user.service.UserService;
-import cn.dreampie.resource.user.service.UserServiceImpl;
 import cn.dreampie.route.annotation.API;
 import cn.dreampie.route.annotation.DELETE;
 import cn.dreampie.route.annotation.GET;
 import cn.dreampie.route.annotation.POST;
 import cn.dreampie.route.annotation.PUT;
+import cn.web.resource.user.model.User;
+import cn.web.resource.user.service.UserService;
+import cn.web.resource.user.service.UserServiceImpl;
 
 /**
  * Created by ice on 14-12-29.

@@ -1,8 +1,9 @@
-package cn.dreampie.resource;
-
-import cn.dreampie.resource.user.model.User;
+package cn.web.resource;
 
 import javax.servlet.*;
+
+import cn.web.resource.user.model.User;
+
 import java.io.IOException;
 import java.util.Date;
 

@@ -267,6 +267,13 @@ public class RedisProvider extends CacheProvider {
 
               for (Jedis j : shards) {
                 j.del(groupedRawKeys);
+                //sunzc修改   增加
+                if(event.getGroup().contains("*")) {
+                	Set<String> keys = j.keys(event.getGroup());
+                	for (String key : keys) {
+                        j.del(key);
+                    }
+                }
               }
             }
           } while (!finished);
@@ -276,6 +283,14 @@ public class RedisProvider extends CacheProvider {
       } else {
         jedis = getJedis();
         if (jedis != null) {
+        	//sunzc修改   增加
+            if(event.getGroup().contains("*")) {
+            	Set<String> keys = jedis.keys(event.getGroup());
+            	for (String key : keys) {
+            		jedis.del(key);
+                }
+            }
+        	
           if (event.getType().equals(CacheEvent.CacheEventType.ALL)) {
             jedis.flushDB();
           } else if (event.getType().equals(CacheEvent.CacheEventType.GROUP)) {

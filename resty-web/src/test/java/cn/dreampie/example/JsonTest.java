@@ -1,7 +1,8 @@
 package cn.dreampie.example;
 
 import cn.dreampie.common.util.json.Jsoner;
-import cn.dreampie.resource.user.model.User;
+import cn.web.resource.user.model.User;
+
 import com.alibaba.fastjson.JSON;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package cn.dreampie.service;
+package cn.web.service;
 
 import org.springframework.stereotype.Component;
 

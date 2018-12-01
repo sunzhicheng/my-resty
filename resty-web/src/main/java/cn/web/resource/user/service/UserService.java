@@ -1,7 +1,7 @@
-package cn.dreampie.resource.user.service;
+package cn.web.resource.user.service;
 
 import cn.dreampie.orm.transaction.Transaction;
-import cn.dreampie.resource.user.model.User;
+import cn.web.resource.user.model.User;
 
 /**
  * Created by wangrenhui on 15/1/2.

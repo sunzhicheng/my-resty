@@ -1,4 +1,4 @@
-package cn.dreampie;
+package cn.web;
 
 import cn.dreampie.server.provider.jetty.JettyServerProvider;
 

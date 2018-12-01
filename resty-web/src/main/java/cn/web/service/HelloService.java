@@ -1,4 +1,4 @@
-package cn.dreampie.service;
+package cn.web.service;
 
 /**
  * @author Dreampie

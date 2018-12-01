@@ -91,6 +91,12 @@
       <version>${resty.version}</version>
       <scope>provided</scope>
     </dependency>
+    <!-- 安全辅助 -->
+    <dependency>
+	    <groupId>commons-codec</groupId>
+	    <artifactId>commons-codec</artifactId>
+	    <version>1.9</version>
+	</dependency>
     
     <!-- Quartz 任务 -->
     <dependency>

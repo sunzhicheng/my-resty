@@ -12,4 +12,6 @@ public @interface API {
   String value();
 
   String[] headers() default {};
+  boolean isOpen() default false;
+  String model() default "";
 }

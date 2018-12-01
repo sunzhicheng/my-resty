@@ -11,9 +11,9 @@ import cn.dreampie.route.annotation.API;
  *
  */
 @API("/sys")
-public class SysResource  extends ApiResource {
+public class SysApiResource  extends ApiResource {
 	
-	private static final Logger LOG = Logger.getLogger(SysResource.class);
+	private static final Logger LOG = Logger.getLogger(SysApiResource.class);
   /**
    * 基础的api Resource 用来添加基础的路径或版本号 和一些公用方法
    */

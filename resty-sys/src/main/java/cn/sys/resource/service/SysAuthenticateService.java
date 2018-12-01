@@ -43,7 +43,7 @@ public PasswordService getPasswordService() {
     	        add("users");}}, user);
     	    return principal;
     }else {
-    	throw ToolException.getEx("账户错误");
+    	throw ToolException.getEx("该账户不存在");
     }
     
   }
@@ -55,7 +55,8 @@ public PasswordService getPasswordService() {
    */
   public Set<Credential> getAllCredentials() {
     Set<Credential> credentials = new HashSet<Credential>();
-    credentials.add(new Credential("*", "/api/v1.0/users/**", "users"));
+    credentials.add(new Credential("*", "/api/v1.0/user/**", "users"));
+    credentials.add(new Credential("*", "/api/v1.0/user/list", "users_list"));
     return credentials;
   }
   

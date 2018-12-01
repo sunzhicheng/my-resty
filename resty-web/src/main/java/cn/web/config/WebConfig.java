@@ -1,6 +1,7 @@
-package cn.dreampie.config;
+package cn.web.config;
 
 import cn.base.config.RestyConfigExt;
+import cn.base.interceptor.TokenInterceptor;
 import cn.dreampie.route.config.ConstantLoader;
 import cn.dreampie.route.config.HandlerLoader;
 import cn.dreampie.route.config.InterceptorLoader;
@@ -38,7 +39,7 @@ public class WebConfig extends RestyConfigExt {
 		// 权限拦截器
 		 interceptorLoader.add(new SecurityInterceptor(new
 				 SysAuthenticateService()));
-		
+		 interceptorLoader.add(new TokenInterceptor());
 	}
 
 	@Override

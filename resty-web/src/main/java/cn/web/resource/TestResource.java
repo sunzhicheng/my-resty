@@ -1,4 +1,4 @@
-package cn.dreampie.resource;
+package cn.web.resource;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,7 +19,6 @@ import cn.dreampie.common.util.Maper;
 import cn.dreampie.orm.Record;
 import cn.dreampie.orm.TableSetting;
 import cn.dreampie.orm.transaction.Transaction;
-import cn.dreampie.resource.user.model.User;
 import cn.dreampie.route.annotation.API;
 import cn.dreampie.route.annotation.DELETE;
 import cn.dreampie.route.annotation.GET;
@@ -28,7 +27,8 @@ import cn.dreampie.route.annotation.POST;
 import cn.dreampie.route.annotation.PUT;
 import cn.dreampie.route.core.Headers;
 import cn.dreampie.route.core.multipart.FILE;
-import cn.dreampie.service.HelloService;
+import cn.web.resource.user.model.User;
+import cn.web.service.HelloService;
 
 /**
  * Created by wangrenhui on 15/1/10.

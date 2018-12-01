@@ -137,15 +137,21 @@ public abstract class SessionBuilder {
       //重新存储session数据
       String oldUsername = oldSession.getUsername();
 
-      //登录或切换了用户
-      if (!oldUsername.equals(username)) {
-        //可能有 -1,0
-        int expires = session.getExpires() > 0 ? (int) (session.getExpires() / 1000) : (int) session.getExpires();
-        outputSessionKey(response, sessionKey, expires);
-      }
-
-      //现在的session
+//      //登录或切换了用户
+//      if (!oldUsername.equals(username)) {
+//        //可能有 -1,0
+//        int expires = session.getExpires() > 0 ? (int) (session.getExpires() / 1000) : (int) session.getExpires();
+//        outputSessionKey(response, sessionKey, expires);
+//      }
+//
+//      //现在的session
+//      sessions.update(oldUsername, oldSessionKey, username, sessionKey, session);
+    
+      //sunzc修改
+      int expires = session.getExpires() > 0 ? (int) (session.getExpires() / 1000) : (int) session.getExpires();
       sessions.update(oldUsername, oldSessionKey, username, sessionKey, session);
+      outputSessionKey(response, sessionKey, expires);
+      
     } else {
       sessions.update(username, sessionKey, session);
     }

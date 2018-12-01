@@ -3,13 +3,14 @@ package cn.sys.resource.model.abs;
 import cn.base.resource.model.RestyBaseModel;
 import cn.base.tool.ToolString;
 import cn.dreampie.orm.Model;
+import cn.sys.resource.model.PlatformRestyModel;
 
 /**
  * 用户
  * @author ozj
  */
 @SuppressWarnings("unused")
-public  abstract  class ISysUser<M extends Model<M>>  extends RestyBaseModel<M> {
+public  abstract  class ISysUser<M extends Model<M>>  extends PlatformRestyModel<M> {
 
 	
 	//columns START
@@ -507,12 +508,10 @@ public  abstract  class ISysUser<M extends Model<M>>  extends RestyBaseModel<M> 
 	public java.lang.String getChannelId() {
 			return getStr(COL_CHANNEL_ID);
 	}
-	
-	
 	  
-	  	    public static final String ALL_COLS =" id,uuid,nickname,mobile,account,email,password,salt,company_uuid,account_type,user_pt,head_url,super_uuid,sex,is_auth,card_number,role_uuid,version,create_uuid,update_uuid,disable_uuid,del_uuid,create_at,update_at,disable_at,del_at,sql_status,state,channel_id";
-	    public static final String DEFAULT_SQL ="select  id,uuid,nickname,mobile,account,email,password,salt,company_uuid,account_type,user_pt,head_url,super_uuid,sex,is_auth,card_number,role_uuid,version,create_uuid,update_uuid,disable_uuid,del_uuid,create_at,update_at,disable_at,del_at,sql_status,state,channel_id  from sys_user where 1=1";
-	
+	public static final String ALL_COLS =" id,uuid,nickname,mobile,account,email,password,salt,company_uuid,account_type,user_pt,head_url,super_uuid,sex,is_auth,card_number,role_uuid,version,create_uuid,update_uuid,disable_uuid,del_uuid,create_at,update_at,disable_at,del_at,sql_status,state,channel_id";
+	public static final String DEFAULT_SQL ="select  id,uuid,nickname,mobile,account,email,password,salt,company_uuid,account_type,user_pt,head_url,super_uuid,sex,is_auth,card_number,role_uuid,version,create_uuid,update_uuid,disable_uuid,del_uuid,create_at,update_at,disable_at,del_at,sql_status,state,channel_id  from sys_user where 1=1";
+
 	@Override
 	public String toString() {
 		String log = ""; 

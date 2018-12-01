@@ -3,13 +3,17 @@ package cn.base.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import cn.base.constant.ExtConstant;
+import cn.base.interceptor.TokenInterceptor;
+import cn.base.render.MyJsonRender;
 import cn.dreampie.cache.CacheEvent;
+import cn.dreampie.common.Constant;
 import cn.dreampie.common.util.Stringer;
 import cn.dreampie.log.Colorer;
 import cn.dreampie.log.Logger;
 import cn.dreampie.orm.ActiveRecordPlugin;
 import cn.dreampie.orm.cache.QueryCache;
 import cn.dreampie.orm.provider.c3p0.C3p0DataSourceProvider;
+import cn.dreampie.route.cache.CacheInterceptor;
 import cn.dreampie.route.config.Config;
 import cn.dreampie.route.config.ConstantLoader;
 import cn.dreampie.route.config.HandlerLoader;
@@ -18,6 +22,7 @@ import cn.dreampie.route.config.PluginLoader;
 import cn.dreampie.route.config.ResourceLoader;
 import cn.dreampie.route.handler.cors.CORSHandler;
 import cn.dreampie.route.interceptor.transaction.TransactionInterceptor;
+import cn.dreampie.route.render.RenderFactory;
 
 /**
  * Created by ice on 14-12-29.
@@ -59,13 +64,9 @@ public abstract class RestyConfigExt extends Config {
 	
 	public void configConstant(ConstantLoader constantLoader) {
 		constantLoader.addJsonSerializerFeature(SerializerFeature.WriteNullStringAsEmpty);
+		constantLoader.addRender(RenderFactory.JSON, new MyJsonRender());
 		// 关系到日志输出，连接池关闭等
 		Colorer.devEnable(false);
-		
-		// 根据配置删除缓存
-//		if (idorpConf.getDelDsCacheWhileBoot()) {
-//			QueryCache.instance().getCacheProvider().doFlush(new CacheEvent(IdPermissionService.TOKEN_PERMISSION_GROUP,getClass().getName()));
-//		}
 		configMoreConstants(constantLoader);
 	}
 
@@ -129,6 +130,8 @@ public abstract class RestyConfigExt extends Config {
 		// //事务的拦截器 @Transaction
 		 interceptorLoader.add(new TransactionInterceptor());
 		 
+		//GET请求缓存
+		interceptorLoader.add(new CacheInterceptor());
 		 configMoreInterceptors(interceptorLoader);
 	}
 
@@ -144,8 +147,8 @@ public abstract class RestyConfigExt extends Config {
 	   */
 	  public void afterStart() {
 		// 根据配置删除所有缓存数据库缓存
-		if (ExtConstant.delQueryCache) {
-			QueryCache.instance().getCacheProvider().doFlush(new CacheEvent(QueryCache.QUERY_DEF_KEY,getClass().getName()));
+		if (ExtConstant.delQueryCache && Constant.cacheEnabled) {
+			QueryCache.instance().getCacheProvider().doFlush(new CacheEvent(QueryCache.QUERY_DEF_KEY+"*",getClass().getName()));
 		}
 		 afterStartMore();
 	  }

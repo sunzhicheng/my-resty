@@ -30,3 +30,36 @@ CREATE TABLE `sys_user` (
   `channel_id` varchar(125) DEFAULT NULL COMMENT '应用ID,数据库所有数据需要属于一个应用,channel_id就是应用ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COMMENT='用户';
+
+
+CREATE TABLE `sys_menu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单配置',
+  `uuid` varchar(125) NOT NULL COMMENT '唯一UUID',
+  `parent_id` varchar(125) DEFAULT NULL COMMENT '父级编号',
+  `parent_ids` text COMMENT '所有父级编号',
+  `level` int(5) DEFAULT 0 COMMENT '树的层',
+  `is_parent` int(1) DEFAULT 1 COMMENT '是否父节点  1.是  2.否',
+  `name` varchar(100) DEFAULT NULL COMMENT '名称',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  `href` text COMMENT '链接',
+  `target` varchar(20) DEFAULT NULL COMMENT '目标,点击菜单之后的去向',
+  `icon` varchar(125) DEFAULT NULL COMMENT '图标',
+  `is_show` int(11) DEFAULT '1' COMMENT '是否在菜单中显示 1:显示 2：不显示',
+  `permission` text COMMENT '权限接口 多个用”,”英文逗号隔开',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
+  `menu_type` int(11) DEFAULT '1' COMMENT '菜单类型 1：运营 2：商户 3：微信端 4：app',
+  `api_url` varchar(200) DEFAULT NULL COMMENT 'api地址,请求的接口地址',
+  `create_uuid` varchar(125) DEFAULT NULL COMMENT '创建者UUID',
+  `update_uuid` varchar(125) DEFAULT NULL COMMENT '更新者UUID',
+  `disable_uuid` varchar(125) DEFAULT NULL COMMENT '禁用者UUID',
+  `del_uuid` varchar(125) DEFAULT NULL COMMENT '删除者UUID',
+  `create_at` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_at` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `disable_at` bigint(20) DEFAULT NULL COMMENT '禁用时间',
+  `del_at` bigint(20) DEFAULT NULL COMMENT '删除时间',
+  `sql_status` int(11) DEFAULT '1' COMMENT '数据状态 0. 删除， 1. 正常, 2. 禁用',
+  `state` int(11) DEFAULT '1' COMMENT '业务状态,由务业务表根据情况定义, 1. 新建',
+  `channel_id` varchar(125) DEFAULT NULL COMMENT '应用ID,数据库所有数据需要属于一个应用,channel_id就是应用ID',
+  `admin_show` int(11) DEFAULT '1' COMMENT '是否超级管理员显示 1：显示 2：不显示',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='菜单配置';

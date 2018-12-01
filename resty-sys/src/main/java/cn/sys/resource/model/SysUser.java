@@ -5,9 +5,12 @@ import java.util.List;
 import cn.dreampie.orm.annotation.Table;
 import cn.sys.resource.model.abs.ISysUser;
 
+import com.alibaba.fastjson.annotation.JSONType;
+import com.alibaba.fastjson.parser.Feature;
 /**
  * Created by ice on 14-12-31.
  */
+//@JSONType(parseFeatures = {Feature.IgnoreNotMatch})
 @Table(name = "sys_user",  primaryKey = "id",  cached = true)
 public class SysUser extends ISysUser<SysUser> {
   public static SysUser dao = new SysUser();

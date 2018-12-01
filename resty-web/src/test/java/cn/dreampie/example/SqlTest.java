@@ -5,8 +5,9 @@ import cn.dreampie.orm.TableSetting;
 import cn.dreampie.orm.callable.ObjectCall;
 import cn.dreampie.orm.callable.ResultSetCall;
 import cn.dreampie.orm.page.FullPage;
-import cn.dreampie.resource.user.model.User;
-import cn.dreampie.resource.user.model.UserInfo;
+import cn.web.resource.user.model.User;
+import cn.web.resource.user.model.UserInfo;
+
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

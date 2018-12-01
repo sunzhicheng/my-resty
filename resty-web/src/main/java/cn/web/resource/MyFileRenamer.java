@@ -1,4 +1,4 @@
-package cn.dreampie.resource;
+package cn.web.resource;
 
 import cn.dreampie.common.util.stream.FileRenamer;
 
