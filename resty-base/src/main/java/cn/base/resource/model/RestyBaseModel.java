@@ -1,20 +1,21 @@
 package cn.base.resource.model;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.base.annotation.OutJson;
+import com.alibaba.fastjson.annotation.JSONField;
+
+import cn.base.tool.ToolDTime;
 import cn.base.tool.ToolSql;
 import cn.base.tool.ToolString;
 import cn.dreampie.log.Logger;
 import cn.dreampie.orm.Model;
 import cn.dreampie.orm.TableMeta;
 import cn.dreampie.orm.dialect.Dialect;
-import cn.dreampie.route.annotation.API;
+import cn.dreampie.orm.page.Page;
 
 /**
  * Model基础类
@@ -59,6 +60,13 @@ public abstract class RestyBaseModel<M extends Model<M>> extends Model<M> {
 	public static final String JIN = "#";
 	public static final String STRING_FORMAT = "%s";
 
+	/**
+	 * SQL 排序字符串
+	 */
+	public static final String SQL_ORDER_BY = " ORDER BY ";
+	public static final String SQL_ORDER_ASC = " ASC ";
+	public static final String SQL_ORDER_DESC = " DESC ";
+	
 	/**
 	 * sql 总数
 	 */
@@ -300,18 +308,124 @@ public abstract class RestyBaseModel<M extends Model<M>> extends Model<M> {
 		}
 		return retnMap;
 	}
+	
+	/**
+	 * 默认动态表格显示字段
+	 */
+	private String[] head = { "UUID","ID", "创建时间", "更新时间" };
+	private String[] colum = { "uuid","id", "create_at", "update_at" };
+	private HEAD_TYPE[] type = { HEAD_TYPE.Long, HEAD_TYPE.Date, HEAD_TYPE.Date };
+
+	public enum HEAD_TYPE {
+		NULL, State, Long, Sex, String,Short_String,Double, Integer, Date, Date_YMD,Date_HS
+	}
+	
+	
+	
+	
+
+	
+	/**
+	 * 根据IPager 和 AIC 数据库分页和数据过滤的配置查询 数据
+	 * 
+	 * @param page
+	 * @param select
+	 * @param from_sql
+	 * @param acc
+	 * @param params
+	 * @return
+	 */
+	protected Pager<M> splitPage(Pager<M> pager, String pSql,Object... params) {
+		int pageNo = pager.getPageNo();
+		int pageSize = pager.getPagePerCount();
+		LOG.debug("request pageNo:" + pageNo + "       pageSize:" + pageSize);
+		if (pageNo == 0) {
+			pageNo = 1;
+		}
+		// 更新同步时间
+		pager.setLast_sync_time(ToolDTime.getNowL());
+		// eg.select count(*) from table
+		if(pager.getTotalCount() == 0) {
+			String count_sql = pSql;
+			if(count_sql.contains(SQL_ORDER_BY)) {
+				count_sql = count_sql.substring(0, count_sql.indexOf(SQL_ORDER_BY));
+			}
+			StringBuilder countSql = new StringBuilder(String.format(COUNT_SQL, count_sql));
+			// eg.from table
+			StringBuilder sql = new StringBuilder(pSql);
+
+			// 行级：过滤
+			// LOG.debug("是否设置行级过滤 :" + aic.isRowFilter());
+			// if (aic.isRowFilter()) {
+			// rowFilter(sql);
+			// }
+			// set总记录数
+			long rowCount = findCount(countSql.toString(), params);
+			pager.setTotalCount(rowCount);
+		}
+		StringBuilder sql = new StringBuilder(pSql);
+
+		if (!pSql.contains(SQL_ORDER_BY)) { // 包含order by 的情况 不处理
+			String sortCol = pager.getSort_head();
+			if(ToolString.isNull(sortCol)) {
+				sortCol = ID;
+			}
+			int sortBy = pager.getSort();
+			LOG.debug("splitPage ,sortCol: " + sortCol + "      and    sortBy:" + sortBy);
+			sql.append(SQL_ORDER_BY);
+			sql.append(sortCol);
+			sql.append("   ");
+			sql.append(sortBy == 2?SQL_ORDER_DESC:SQL_ORDER_ASC );
+		}
+		switch (pager.getPm()) {
+		case 1:
+			LOG.debug("请求<固定>表格查询");
+			// 固定表格方式只返回对象List;
+			Page<M> pageModer = paginate(pageNo, pageSize, sql.toString(), params);
+			pager.setRowList(pageModer.getList());
+			return pager;
+		case 2:
+			// 初始化表头配置
+			pager.initPageHead();
+			if (pager.MAP_HEAD_COL.isEmpty()) {
+				LOG.error("**********未初始化数据库字段集合 MAP_HEAD_COL**********");
+				return pager;
+			}
+			if (pager.LIST_HEADS.isEmpty()) {
+				LOG.error("**********未初始化表头集合 LIST_HEADS**********");
+				return pager;
+			}
+
+			List<M> bindList = new ArrayList<M>();
+			// 分页处理 是否分页
+			Page<M> pm = paginate(pageNo, pageSize, sql.toString(), params);
+			bindList = pm.getList();
+
+			LOG.debug("动态表格模式生成结果集Size():" + bindList.size());
+			// 设在IDhead 一般以第一个
+			pager.setId_head("UUID");
+			// set IPagerRowData 集合
+			pager.bindIPagerRowData(bindList);
+			// 动态表格模式不需要返回真实结果 ，数据已经封装在page 对象里面 ，所以返回空结果集
+			return pager;
+		default:
+			LOG.debug("不支持的分页列表方式:" + pager.getPm());
+			// 不返回数据
+			return pager;
+		}
+	}
 
 	private void setJsonOutField(Class<?> clz, RestyBaseModel model) {
 		Field[] fields = clz.getDeclaredFields();
 		for (Field field : fields) {// --for() begin
-			OutJson outJson = field.getAnnotation(OutJson.class);
+			JSONField jsonField = field.getAnnotation(JSONField.class);
 			
-			if (outJson != null) {
+			if (jsonField != null) {
 				// 获取原来的访问控制权限
 				boolean accessFlag = field.isAccessible();
 				// 修改访问控制权限
 				field.setAccessible(true);
-				if (outJson.render()) {
+				if (jsonField.serialize()) {
 					String fieldType = field.getGenericType().toString();
 					try {
 						Object value = field.get(model);
@@ -320,7 +434,6 @@ public abstract class RestyBaseModel<M extends Model<M>> extends Model<M> {
 							for (int i = 0; i < list.size(); i++) {
 								Object obj = list.get(i);
 								if (obj instanceof RestyBaseModel) {
-									LOG.debug("#############"+obj.getClass().getTypeName());
 									setJsonOutField(obj.getClass(),(RestyBaseModel)obj);
 								}
 							}
@@ -338,12 +451,8 @@ public abstract class RestyBaseModel<M extends Model<M>> extends Model<M> {
 							model.put(field.getName(), value);
 						}
 						field.setAccessible(accessFlag);
-					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					} catch (Exception e) {
+						LOG.error("setJsonOutField  error ",e);
 					}
 				}
 			}

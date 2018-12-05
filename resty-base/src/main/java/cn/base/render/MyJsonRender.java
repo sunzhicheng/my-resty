@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import cn.base.resource.model.RestyBaseModel;
+import cn.dreampie.common.Constant;
 import cn.dreampie.common.Render;
 import cn.dreampie.common.http.ContentType;
 import cn.dreampie.common.http.HttpRequest;
 import cn.dreampie.common.http.HttpResponse;
 import cn.dreampie.common.util.json.Jsoner;
+import cn.dreampie.log.Logger;
 
 /**
  * Created by ice on 14-12-29.
@@ -18,7 +20,7 @@ import cn.dreampie.common.util.json.Jsoner;
  * @JsonerFiled(serialize=false)
  */
 public class MyJsonRender extends Render {
-
+	private static final Logger LOG = Logger.getLogger(MyJsonRender.class);
 	public void render(HttpRequest request, HttpResponse response, Object out) {
 		if (out != null) {
 			response.setContentType(ContentType.JSON.value());
@@ -51,6 +53,9 @@ public class MyJsonRender extends Render {
 					}
 				}
 				String json = Jsoner.toJSON(out);
+				if(Constant.devEnable) {
+					LOG.debug("url= "+request.getRestPath()+"  返回  json  "+json);
+				}
 				write(request, response, json);
 			}
 		}

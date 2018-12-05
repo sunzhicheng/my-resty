@@ -1,12 +1,13 @@
 package cn.sys.resource.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import cn.base.resource.model.Pager;
+import cn.base.resource.model.Query;
+import cn.base.tool.ToolString;
 import cn.dreampie.orm.annotation.Table;
 import cn.sys.resource.model.abs.ISysUser;
-
-import com.alibaba.fastjson.annotation.JSONType;
-import com.alibaba.fastjson.parser.Feature;
 /**
  * Created by ice on 14-12-31.
  */
@@ -15,6 +16,25 @@ import com.alibaba.fastjson.parser.Feature;
 public class SysUser extends ISysUser<SysUser> {
   public static SysUser dao = new SysUser();
 
+  public static final String[] list_head = {"ID","账户","名称","手机号码","邮箱"};
+  public static final String[] list_col = { COL_ID, COL_ACCOUNT, COL_NICKNAME, COL_MOBILE, COL_EMAIL};
+	public static final HEAD_TYPE[] list_type = { HEAD_TYPE.Long, HEAD_TYPE.String, HEAD_TYPE.String, HEAD_TYPE.String,HEAD_TYPE.String};
+
+  public static final String list = "select * from sys_user ";
+  public void list(SysUser entry){
+	  Query query = entry.getQuery();
+	  String nickName = query.getItem("nickname");
+	  List<String> parmList = new ArrayList<>();
+	  StringBuilder sql = new StringBuilder(list);
+	  if(ToolString.isNotNull(nickName)) {
+		  sql.append(" where nickname=? ");
+		  parmList.add(nickName);
+	  }
+	  entry.getPager().setPageHead(list_head, list_col, list_type);
+	  Pager pager = splitPage(entry.getPager(), sql.toString(),parmList.toArray());
+  }
+  
+  
   // 默认 getXxx 的形式的方法 会被认为是属性 如果userInfos的值不存在 方法会被执行一次
   // json反转时  如果 getXxx的存在  会按 getXxx的返回值类型 进行转换 如：{userInfos:[{key:value,key1:value1}]} userInfos会被转换为  List<UserInfo>类型
   //  @JSONField(serialize = false) 如果getXxx的值不转为json  使用该注解

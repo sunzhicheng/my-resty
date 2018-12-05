@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.base.annotation.OutJson;
+import com.alibaba.fastjson.annotation.JSONField;
+
 import cn.base.tool.ToolString;
 import cn.dreampie.log.Logger;
 import cn.dreampie.orm.annotation.Table;
@@ -20,7 +21,7 @@ public class SysMenu extends ISysMenuAbs<SysMenu> implements Serializable{
 	private static final long serialVersionUID = -1L;
 	private static Logger LOG = Logger.getLogger(SysMenu.class);
 	public static SysMenu dao = new SysMenu();
-	@OutJson
+	@JSONField
 	private ArrayList<SysMenu> sub_list = new ArrayList<>();
 	
 	public static  final String   hasMenu = "select menu.*   from   id_sys_menu  menu  inner join id_sys_user_type_menu  userTypeMenu   on userTypeMenu.menu_id= menu.uuid where userTypeMenu.sql_status=1 and  menu.sql_status=1   ";

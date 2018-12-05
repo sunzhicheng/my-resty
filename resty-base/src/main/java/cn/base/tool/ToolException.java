@@ -7,6 +7,6 @@ import cn.dreampie.common.http.result.HttpStatus;
 public class ToolException {
 
 	public static HttpException getEx(String msg) {
-		return  new HttpException(HttpStatus.OK,HttpMessage.INTERNAL_SERVER_ERROR,msg);
+		return  new HttpException(HttpStatus.CREATED,HttpMessage.INTERNAL_SERVER_ERROR,msg);
 	}
 }

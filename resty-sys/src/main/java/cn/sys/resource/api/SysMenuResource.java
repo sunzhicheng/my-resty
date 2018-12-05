@@ -2,9 +2,12 @@ package cn.sys.resource.api;
 
 import java.util.List;
 
+import cn.base.resource.model.Pager;
+import cn.dreampie.log.Logger;
 import cn.dreampie.route.annotation.API;
 import cn.dreampie.route.annotation.POST;
 import cn.sys.resource.SysApiResource;
+import cn.sys.resource.model.PlatformRestyModel;
 import cn.sys.resource.model.SysMenu;
 import cn.sys.resource.service.ISysMenuService;
 import cn.sys.resource.service.SysServiceFactory;
@@ -16,6 +19,7 @@ import cn.sys.resource.service.SysServiceFactory;
  */
 @API(value="/menu")
 public class SysMenuResource extends SysApiResource {
+	private static Logger LOG = Logger.getLogger(SysMenuResource.class);
 	private static ISysMenuService sysMenuService = SysServiceFactory
 			.getInstance().getSysMenuService();
 	
@@ -64,6 +68,8 @@ public class SysMenuResource extends SysApiResource {
 //	
 	@POST("/hasMenu")
 	public List<SysMenu> hasMenu(SysMenu entry) {
+		Pager p = entry.getPager();
+		LOG.debug("hasMenu::::::"+p);
 		List<SysMenu> list = sysMenuService.hasMenu(entry);
 		return list;
 	}
